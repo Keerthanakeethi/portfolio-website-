@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keerthana M — Python Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0A1A33;
+    --navy:#0F2545;
+    --blue-primary:#2F6FED;
+    --blue-bright:#4F8CFF;
+    --blue-pale:#EAF1FF;
+    --slate:#4A5568;
+    --slate-dark:#1B2A41;
+    --paper:#F6F9FE;
+    --white:#FFFFFF;
+    --border:#DCE6F7;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--slate-dark);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--navy-deep);}
+  a{text-decoration:none;color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .container{max-width:1120px;margin:0 auto;padding:0 32px;}
+  ::selection{background:var(--blue-primary);color:#fff;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(10,26,51,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner{
+    max-width:1120px;margin:0 auto;padding:16px 32px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .logo{
+    font-family:'JetBrains Mono',monospace;
+    color:#fff;font-size:15px;font-weight:500;letter-spacing:0.3px;
+  }
+  .logo span{color:var(--blue-bright);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{
+    color:#C7D6F0;font-size:14px;font-weight:500;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover{color:#fff;}
+  .nav-cta{
+    background:var(--blue-primary);color:#fff !important;
+    padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;
+    transition:background 0.2s;
+  }
+  .nav-cta:hover{background:var(--blue-bright);}
+  .burger{display:none;color:#fff;font-size:22px;background:none;border:none;cursor:pointer;}
+
+  /* HERO */
+  header.hero{
+    background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 55%,#132C52 100%);
+    color:#fff;padding:170px 0 110px;position:relative;overflow:hidden;
+  }
+  header.hero::before{
+    content:"";position:absolute;top:-120px;right:-120px;width:480px;height:480px;
+    background:radial-gradient(circle,rgba(79,140,255,0.28) 0%,transparent 70%);
+    border-radius:50%;
+  }
+  header.hero::after{
+    content:"";position:absolute;bottom:-160px;left:-100px;width:400px;height:400px;
+    background:radial-gradient(circle,rgba(47,111,237,0.18) 0%,transparent 70%);
+    border-radius:50%;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;
+    position:relative;z-index:2;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--blue-bright);
+    letter-spacing:1px;margin-bottom:18px;display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 0 4px rgba(74,222,128,0.18);}
+  .hero h1{
+    font-size:46px;line-height:1.12;font-weight:700;color:#fff;margin-bottom:16px;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--blue-bright);
+    background:linear-gradient(90deg,#4F8CFF,#8AB4FF);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{
+    font-size:16.5px;color:#B9C7E0;max-width:520px;margin-bottom:30px;
+  }
+  .stack-line{
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;color:#8FA6D1;
+    background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+    padding:10px 16px;border-radius:8px;display:inline-block;margin-bottom:34px;
+  }
+  .stack-line b{color:#DCE9FF;font-weight:500;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    padding:13px 26px;border-radius:9px;font-weight:600;font-size:14.5px;
+    display:inline-flex;align-items:center;gap:8px;transition:all 0.2s;border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--blue-primary);color:#fff;}
+  .btn-primary:hover{background:var(--blue-bright);transform:translateY(-2px);}
+  .btn-outline{border-color:rgba(255,255,255,0.25);color:#fff;}
+  .btn-outline:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px);}
+  .btn-ghost{color:#B9C7E0;}
+  .btn-ghost:hover{color:#fff;}
+
+  .hero-photo-wrap{display:flex;justify-content:center;position:relative;}
+  .hero-photo{
+    width:280px;height:280px;border-radius:24px;position:relative;
+    background:linear-gradient(145deg,#1B3B6B,#0F2545);
+    border:1px solid rgba(255,255,255,0.12);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .hero-photo img{
+    width:100%;height:100%;object-fit:cover;border-radius:24px;
+  }
+  .hero-photo .initials{
+    font-family:'Space Grotesk',sans-serif;font-size:78px;font-weight:700;
+    color:rgba(255,255,255,0.9);letter-spacing:2px;
+  }
+  .photo-tag{
+    position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);
+    background:#fff;color:var(--navy-deep);padding:8px 18px;border-radius:30px;
+    font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    white-space:nowrap;font-family:'JetBrains Mono',monospace;
+  }
+
+  /* SECTION GENERIC */
+  section{padding:96px 0;}
+  .section-head{margin-bottom:52px;}
+  .section-tag{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--blue-primary);
+    letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:500;
+  }
+  .section-head h2{font-size:32px;font-weight:700;}
+  .section-head p{color:var(--slate);font-size:15px;margin-top:10px;max-width:560px;}
+
+  /* ABOUT */
+  .about{background:var(--white);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .about p{color:var(--slate);font-size:15.5px;margin-bottom:16px;}
+  .about-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px;}
+  .fact{
+    border:1px solid var(--border);border-radius:10px;padding:16px 18px;background:var(--blue-pale);
+  }
+  .fact .num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--navy-deep);}
+  .fact .label{font-size:12.5px;color:var(--slate);margin-top:2px;}
+  .edu-card{
+    border:1px solid var(--border);border-radius:var(--radius);padding:26px;
+    background:linear-gradient(160deg,#fff,#F2F7FF);
+  }
+  .edu-card .role{font-size:12.5px;color:var(--blue-primary);font-weight:600;font-family:'JetBrains Mono',monospace;margin-bottom:8px;}
+  .edu-card h3{font-size:19px;margin-bottom:4px;}
+  .edu-card .sub{color:var(--slate);font-size:14px;margin-bottom:18px;}
+  .edu-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .edu-card li{font-size:13.5px;color:var(--slate-dark);display:flex;gap:8px;align-items:flex-start;}
+  .edu-card li::before{content:"→";color:var(--blue-primary);font-weight:700;flex-shrink:0;}
+
+  /* SKILLS */
+  .skills{background:var(--paper);}
+  .skills-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+  .skill-card{
+    background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px 18px;transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .skill-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px -20px rgba(15,37,69,0.25);}
+  .skill-card h4{font-size:13px;text-transform:uppercase;letter-spacing:0.8px;color:var(--blue-primary);margin-bottom:14px;font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .skill-card ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .skill-card li{font-size:14px;color:var(--slate-dark);font-weight:500;}
+
+  /* EXPERIENCE */
+  .experience{background:var(--white);}
+  .exp-card{
+    border:1px solid var(--border);border-radius:var(--radius);padding:32px;
+    background:linear-gradient(135deg,var(--navy-deep),var(--navy) 70%);color:#fff;
+    display:grid;grid-template-columns:1fr auto;gap:30px;align-items:start;
+  }
+  .exp-card .role{font-size:12.5px;font-family:'JetBrains Mono',monospace;color:var(--blue-bright);margin-bottom:10px;}
+  .exp-card h3{color:#fff;font-size:22px;margin-bottom:4px;}
+  .exp-card .company{color:#AFC1E3;font-size:14.5px;margin-bottom:18px;}
+  .exp-tags{display:flex;flex-wrap:wrap;gap:9px;}
+  .exp-tags span{
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+    padding:6px 13px;border-radius:20px;font-size:12.5px;color:#DCE9FF;
+  }
+  .exp-badge{
+    background:rgba(79,140,255,0.15);border:1px solid rgba(79,140,255,0.35);
+    padding:14px 18px;border-radius:10px;text-align:center;min-width:120px;
+  }
+  .exp-badge .n{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--blue-bright);}
+  .exp-badge .l{font-size:11.5px;color:#AFC1E3;margin-top:2px;}
+
+  /* PROJECTS */
+  .projects{background:var(--paper);}
+  .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .project-card{
+    background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .project-card:hover{transform:translateY(-5px);box-shadow:0 20px 40px -22px rgba(15,37,69,0.3);}
+  .project-top{
+    padding:22px 24px 0;display:flex;justify-content:space-between;align-items:flex-start;
+  }
+  .project-index{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--blue-primary);
+    background:var(--blue-pale);padding:5px 10px;border-radius:6px;font-weight:600;
+  }
+  .project-card h3{font-size:19px;padding:14px 24px 6px;}
+  .project-card .desc{font-size:14px;color:var(--slate);padding:0 24px;margin-bottom:16px;}
+  .project-feats{padding:0 24px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .project-feats span{
+    font-size:12px;background:var(--blue-pale);color:var(--navy);padding:5px 11px;
+    border-radius:6px;font-family:'JetBrains Mono',monospace;
+  }
+  .project-tech{
+    padding:0 24px;font-size:12.5px;color:var(--slate);margin-bottom:20px;
+  }
+  .project-tech b{color:var(--slate-dark);}
+  .project-actions{
+    margin-top:auto;border-top:1px solid var(--border);display:flex;
+  }
+  .project-actions a{
+    flex:1;text-align:center;padding:14px 0;font-size:13.5px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;gap:7px;transition:background 0.2s;
+  }
+  .project-actions a.gh{color:var(--slate-dark);border-right:1px solid var(--border);}
+  .project-actions a.gh:hover{background:var(--blue-pale);}
+  .project-actions a.demo{color:var(--blue-primary);}
+  .project-actions a.demo:hover{background:var(--blue-pale);}
+
+  /* GITHUB */
+  .github{background:linear-gradient(135deg,var(--navy-deep),var(--navy));color:#fff;text-align:center;}
+  .github h2{color:#fff;}
+  .github p{color:#B9C7E0;max-width:480px;margin:14px auto 30px;font-size:15px;}
+  .github .btn-primary{margin:0 auto;}
+
+  /* CONTACT */
+  .contact{background:var(--white);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  .contact-info{display:flex;flex-direction:column;gap:18px;}
+  .contact-item{
+    display:flex;align-items:center;gap:14px;padding:16px 18px;
+    border:1px solid var(--border);border-radius:10px;background:var(--blue-pale);
+  }
+  .contact-item .ic{
+    width:38px;height:38px;border-radius:8px;background:var(--blue-primary);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+  }
+  .contact-item .lab{font-size:12px;color:var(--slate);}
+  .contact-item .val{font-size:14.5px;font-weight:600;color:var(--slate-dark);}
+  form{display:flex;flex-direction:column;gap:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:13px;color:var(--slate);font-weight:500;}
+  .field input,.field textarea{
+    border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-family:'Inter',sans-serif;
+    font-size:14px;background:var(--paper);color:var(--slate-dark);
+  }
+  .field textarea{resize:vertical;min-height:100px;}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--blue-primary);outline-offset:1px;}
+  form .btn-primary{margin-top:4px;justify-content:center;border:none;font-family:'Inter',sans-serif;}
+
+  /* FOOTER */
+  footer{background:var(--navy-deep);color:#8FA6D1;padding:36px 0;text-align:center;font-size:13.5px;}
+  .footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:16px;}
+  .footer-links a{color:#DCE9FF;font-weight:500;font-size:13.5px;}
+  .footer-links a:hover{color:#fff;}
+
+  @media(max-width:860px){
+    .nav-links{display:none;}
+    .hero-grid{grid-template-columns:1fr;text-align:left;}
+    .hero-photo-wrap{order:-1;margin-bottom:20px;}
+    .hero h1{font-size:34px;}
+    .about-grid,.contact-grid{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:repeat(2,1fr);}
+    .project-grid{grid-template-columns:1fr;}
+    .exp-card{grid-template-columns:1fr;}
+    section{padding:64px 0;}
+    .container{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Keerthana<span>.dev</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">AVAILABLE FOR OPPORTUNITIES</div>
+      <h1>Hello, I'm Keerthana M — <em>Python Full Stack Developer</em></h1>
+      <p class="lead">I design and build secure, scalable web applications using Python, Django and React — from REST APIs and authentication systems to responsive, production-ready interfaces.</p>
+      <div class="stack-line mono">stack = [<b>Python</b>, <b>Django</b>, <b>DRF</b>, <b>React.js</b>, <b>MySQL</b>]</div>
+      <div class="hero-ctas">
+        <a href="keerthana_Resume_py.pdf" class="btn btn-primary" download>⬇ Download Resume</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Contact Me →</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">
+        <!-- Replace src below with your actual photo, e.g. "profile.jpg" -->
+        <img src="profile.jpeg" alt="Keerthana M" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="initials" style="display:none;">KM</div>
+        <div class="photo-tag">Chennai, India</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div>
+      <div class="section-tag">// about me</div>
+      <h2>Building reliable software, one clean API at a time</h2>
+      <p>I'm a Software Developer at Softgro Technologies, Chennai, where I design and maintain scalable web applications using Python and Django. My work spans RESTful API development, authentication and authorization systems, database architecture, and integrating third-party services.</p>
+      <p>I hold a Bachelor of Engineering in Computer Science from Jaya Sakthi Engineering College, and I'm passionate about writing high-performance code, collaborating across teams, and continuously learning modern web technologies.</p>
+      <div class="about-facts">
+        <div class="fact"><div class="num">1+</div><div class="label">Year of Experience</div></div>
+        <div class="fact"><div class="num">5</div><div class="label">Projects Delivered</div></div>
+        <div class="fact"><div class="num">10+</div><div class="label">Technologies Used</div></div>
+        <div class="fact"><div class="num">100%</div><div class="label">Committed to Quality</div></div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="role">CURRENT ROLE</div>
+      <h3>Software Developer</h3>
+      <div class="sub">Softgro Technologies, Chennai · April 2025 – Present</div>
+      <ul>
+        <li>Develop and maintain scalable web apps with Python & Django</li>
+        <li>Design RESTful APIs and integrate third-party services</li>
+        <li>Manage MySQL & SQLite databases for optimized storage</li>
+        <li>Implement authentication & authorization for secure access</li>
+        <li>Collaborate with frontend teams on UI integration</li>
+      </ul>
+      <div class="role" style="margin-top:22px;">EDUCATION</div>
+      <h3 style="font-size:16.5px;">B.E. Computer Science & Engineering</h3>
+      <div class="sub" style="margin-bottom:0;">Jaya Sakthi Engineering College</div>
+    </div>
+  </div>
+</section>
+
+<section class="skills" id="skills">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">// technical skills</div>
+      <h2>Tools & technologies I work with</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>Languages</h4>
+        <ul><li>Python</li><li>JavaScript</li><li>NumPy</li><li>Pandas</li><li>Matplotlib</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Backend</h4>
+        <ul><li>Django</li><li>Django REST Framework</li><li>REST APIs</li><li>Auth & Authorization</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Frontend</h4>
+        <ul><li>React.js</li><li>HTML5 / CSS3</li><li>Bootstrap 5</li><li>JavaScript</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Databases</h4>
+        <ul><li>MySQL</li><li>SQLite</li><li>PostgreSQL (Basic)</li></ul>
+      </div>
+      <div class="skill-card">
+        <h4>Tools</h4>
+        <ul><li>Git & GitHub</li><li>VS Code</li><li>Postman</li><li>cPanel Hosting</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">// experience</div>
+      <h2>Where I've worked</h2>
+    </div>
+    <div class="exp-card">
+      <div>
+        <div class="role">APR 2025 — PRESENT</div>
+        <h3>Software Developer</h3>
+        <div class="company">Softgro Technologies, Chennai</div>
+        <div class="exp-tags">
+          <span>Python</span><span>Django</span><span>REST APIs</span><span>MySQL</span>
+          <span>Git & GitHub</span><span>Deployment</span><span>Performance Optimization</span>
+        </div>
+      </div>
+      <div class="exp-badge">
+        <div class="n">01</div>
+        <div class="l">Current Role</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-tag">// projects</div>
+      <h2>Things I've built</h2>
+      <p>Update the GitHub and demo links below with your actual repository and hosted URLs.</p>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">01</span></div>
+        <h3>Enquiry WhatsApp Chatbot System</h3>
+        <p class="desc">Automated WhatsApp chatbot with a menu-driven flow that delivers instant responses to customer enquiries via integrated messaging APIs.</p>
+        <div class="project-feats">
+          <span>REST API</span><span>Menu-driven Flow</span><span>Message Logging</span>
+        </div>
+        <div class="project-tech"><b>Tech:</b> Python, Django, DRF, MySQL</div>
+        <div class="project-actions">
+          <a class="gh" href="https://github.com/Keerthanakeethi/whatsapp-enquiry-chatbot" target="_blank">↗ GitHub</a>
+          <a class="demo" href="https://whatsapp-enquiry-chatbot-demo.vercel.app" target="_blank">▶ Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">02</span></div>
+        <h3>Authenticate Student Examination System</h3>
+        <p class="desc">Secure online exam platform with role-based authentication, countdown timers, and auto-submit on timeout or tab switching to maintain exam integrity.</p>
+        <div class="project-feats">
+          <span>Timer</span><span>Auto Submit</span><span>Tab Switch Detection</span><span>Role-based Auth</span>
+        </div>
+        <div class="project-tech"><b>Tech:</b> Python, Django, Bootstrap 5, MySQL</div>
+        <div class="project-actions">
+          <a class="gh" href="https://github.com/Keerthanakeethi/student-examination-system" target="_blank">↗ GitHub</a>
+          <a class="demo" href="https://student-exam-system-demo.vercel.app" target="_blank">▶ Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">03</span></div>
+        <h3>Shopping Cart E-commerce & Review Analysis</h3>
+        <p class="desc">Full-stack e-commerce app with cart, order management, and a verified one-review-per-user rating system with average-rating analysis.</p>
+        <div class="project-feats">
+          <span>Authentication</span><span>Review Analysis</span><span>Cart & Orders</span>
+        </div>
+        <div class="project-tech"><b>Tech:</b> Python, Django, Bootstrap 5, JS, MySQL</div>
+        <div class="project-actions">
+          <a class="gh" href="https://github.com/Keerthanakeethi/ecommerce-review-system" target="_blank">↗ GitHub</a>
+          <a class="demo" href="https://ecommerce-review-demo.vercel.app" target="_blank">▶ Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">04</span></div>
+        <h3>Music Web Application</h3>
+        <p class="desc">Responsive music streaming app for browsing songs, managing playlists, and enjoying smooth playback through an interactive player UI.</p>
+        <div class="project-feats">
+          <span>Music Player</span><span>Playlist</span><span>Search</span><span>Responsive UI</span>
+        </div>
+        <div class="project-tech"><b>Tech:</b> React.js, JavaScript, HTML5, CSS3, Bootstrap</div>
+        <div class="project-actions">
+          <a class="gh" href="https://github.com/Keerthanakeethi/music-web-app" target="_blank">↗ GitHub</a>
+          <a class="demo" href="https://music-web-app-demo.vercel.app" target="_blank">▶ Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><span class="project-index">05</span></div>
+        <h3>Online Complaint Registration System</h3>
+        <p class="desc">Complaint management platform where users submit and track complaints while admins manage resolutions through a centralized dashboard.</p>
+        <div class="project-feats">
+          <span>Complaint Tracking</span><span>Admin Dashboard</span><span>Authentication</span>
+        </div>
+        <div class="project-tech"><b>Tech:</b> Python, Django, Bootstrap 5, JS, MySQL</div>
+        <div class="project-actions">
+          <a class="gh" href="https://github.com/Keerthanakeethi/complaint-registration-system" target="_blank">↗ GitHub</a>
+          <a class="demo" href="https://complaint-system-demo.vercel.app" target="_blank">▶ Live Demo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="github">
+  <div class="container">
+    <div class="section-tag" style="color:var(--blue-bright);">// open source</div>
+    <h2>Explore all my repositories on GitHub</h2>
+    <p>Check out the full source code, commit history, and documentation for every project I've built.</p>
+    <a href="https://github.com/Keerthanakeethi" target="_blank" class="btn btn-primary">↗ View GitHub Profile</a>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div>
+      <div class="section-tag">// get in touch</div>
+      <h2 style="margin-bottom:16px;">Let's work together</h2>
+      <p style="color:var(--slate);font-size:15px;margin-bottom:30px;">Open to full-time roles and freelance projects. Reach out and I'll get back to you as soon as possible.</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="ic">@</div>
+          <div><div class="lab">Email</div><div class="val">Keertikeerthana253@gmail.com</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="ic">☎</div>
+          <div><div class="lab">Phone</div><div class="val">+91 80723 33615</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="ic">⌘</div>
+          <div><div class="lab">GitHub</div><div class="val">github.com/Keerthanakeethi</div></div>
+        </div>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Connect this form to EmailJS to receive messages directly in your inbox.');">
+      <div class="field"><label>Name</label><input type="text" placeholder="Your name" required></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="you@email.com" required></div>
+      <div class="field"><label>Subject</label><input type="text" placeholder="What's this about?" required></div>
+      <div class="field"><label>Message</label><textarea placeholder="Write your message..." required></textarea></div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://github.com/Keerthanakeethi" target="_blank">GitHub</a>
+      <a href="mailto:Keertikeerthana253@gmail.com">Email</a>
+      <a href="tel:+918072333615">Phone</a>
+      <a href="#about">Back to top ↑</a>
+    </div>
+    <div>© 2026 Keerthana M. Built with Python-powered precision.</div>
+  </div>
+</footer>
+
+</body>
+</html>
